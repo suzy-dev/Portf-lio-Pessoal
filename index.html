@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suzana Araújo | Desenvolvedora FullStack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --bg-warm: #FDFCFB;
+            --text-main: #2D3748;
+            --accent-soft: #4F46E5;
+            --secondary: #64748B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-warm);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E2E8F0;
+        }
+
+        .skill-tag {
+            background: #EEF2FF;
+            color: #4338CA;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            color: #4F46E5;
+            border-bottom: 2px solid #4F46E5;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container { height: 250px; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <span class="font-bold text-lg tracking-tight text-indigo-600">&lt; SUZANA.DEV /&gt;</span>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-500">
+                <a href="#perfil" class="nav-link hover:text-indigo-600 transition">Perfil</a>
+                <a href="#habilidades" class="nav-link hover:text-indigo-600 transition">Habilidades</a>
+                <a href="#experiencia" class="nav-link hover:text-indigo-600 transition">Experiência</a>
+                <a href="#academico" class="nav-link hover:text-indigo-600 transition">Acadêmico</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        
+        <!-- Hero Section -->
+        <section id="perfil" class="mb-20 animate-fade-in">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="flex-1">
+                    <div class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-4 tracking-wider uppercase">Analista Desenvolvedora Júnior</div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">Suzana Souza Araújo</h1>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                        Sou desenvolvedora Full Stack apaixonada por tecnologia, desenvolvimento web e resolução de problemas. Atualmente curso Ciência da Computação e acumulo experiência profissional em projetos do setor público e privado, atuando com Angular, Node.js, C#/.NET, JavaScript e TypeScript. 
+                       <br><br> Ao longo da minha trajetória, participei do desenvolvimento, manutenção e evolução de sistemas utilizados diariamente por centenas de usuários. Estou sempre buscando aprender, evoluir tecnicamente e construir soluções que unam qualidade, desempenho e uma boa experiência para quem utiliza o produto.
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-sm font-medium">
+                        <span class="flex items-center text-gray-500">📞 (61) 99660-3770</span>
+                        <span class="flex items-center text-gray-500">✉️ suzanasouza.caetano@gmail.com</span>
+                        <a href="https://linkedin.com/in/suzana-araujo-devjunior" target="_blank" class="text-indigo-600 hover:underline">LinkedIn ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Dashboard -->
+        <section id="habilidades" class="mb-20">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-bold mb-4">Competências Técnicas</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Visualização baseada na experiência prática e tempo de atuação em projetos reais.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-2xl">
+                    <h3 class="text-lg font-semibold mb-6 text-center">Domínio de Stack</h3>
+                    <div class="chart-container">
+                        <canvas id="stackChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <h3 class="text-lg font-semibold mb-6 text-center">Linguagens & Ferramentas</h3>
+                    <div class="chart-container">
+                        <canvas id="langChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section id="experiencia" class="mb-20">
+            <div class="flex items-center justify-between mb-10">
+                <h2 class="text-3xl font-bold">Jornada Profissional</h2>
+            </div>
+
+            <div class="relative space-y-8 pl-10 md:pl-0">
+                <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gray-200"></div>
+
+                <!-- Central IT - Junior -->
+                <div class="relative flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/2 md:text-right">
+                        <div class="text-sm font-bold text-indigo-600">Janeiro de 2026 - Atual</div>
+                        <h3 class="text-xl font-bold">Analista Desenvolvedor Júnior</h3>
+                        <div class="text-gray-500 font-medium">Central IT Tecnologia em Negócios</div>
+                    </div>
+                    <div class="absolute left-[-30px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-indigo-600 border-4 border-white shadow"></div>
+                    <div class="md:w-1/2 glass-card p-6 rounded-xl">
+                        <p class="text-sm text-gray-600 mb-4">Desenvolvimento de novos produtos e evolução de sistemas legados. Foco em aplicações robustas e performance.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Angular</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Scrum</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Central IT - LowCode -->
+                <div class="relative flex flex-col md:flex-row-reverse gap-8 items-center">
+                    <div class="md:w-1/2 md:text-left">
+                        <div class="text-sm font-bold text-gray-400">Janeiro de 2025 - Janeiro de 2026</div>
+                        <h3 class="text-xl font-bold text-gray-700">Técnico LowCode</h3>
+                        <div class="text-gray-500 font-medium">Central IT Tecnologia em Negócios</div>
+                    </div>
+                    <div class="absolute left-[-30px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-gray-400 border-4 border-white shadow"></div>
+                    <div class="md:w-1/2 glass-card p-6 rounded-xl">
+                        <p class="text-sm text-gray-600 mb-2">Ponto de entrada na empresa com foco em agilidade de entrega e suporte a sistemas de analytics.</p>
+                        <span class="text-xs font-bold text-green-600 uppercase">↑ Promovida em 12 meses</span>
+                    </div>
+                </div>
+
+                <!-- MME -->
+                <div class="relative flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/2 md:text-right">
+                        <div class="text-sm font-bold text-gray-400">Setembro de 2023 - Janeiro de 2025</div>
+                        <h3 class="text-xl font-bold">Desenvolvedora de Sistemas (Estágio)</h3>
+                        <div class="text-gray-500 font-medium">Ministério de Minas e Energia (MME)</div>
+                    </div>
+                    <div class="absolute left-[-30px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-indigo-300 border-4 border-white shadow"></div>
+                    <div class="md:w-1/2 glass-card p-6 rounded-xl">
+                        <p class="text-sm text-gray-600 mb-4">Atuação estratégica no Portal Gov.br e suporte a sistemas legados. Criou e ministrou curso de CMS Plone para servidores.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">SQL Server</span>
+                            <span class="skill-tag">CMS Plone</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">JS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academic & Projects -->
+        <section id="academico" class="mb-20">
+            <h2 class="text-3xl font-bold mb-10 text-center">Educação & Extensão</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-indigo-600 text-2xl mb-2">🎓</div>
+                        <h4 class="font-bold mb-2">Bacharelado em Ciência da Computação</h4>
+                        <p class="text-sm text-gray-500">UDF - Centro Universitário do Distrito Federal</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100 text-xs font-semibold text-gray-400 uppercase">Previsão: 2026</div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between bg-indigo-50/30 border-indigo-100">
+                    <div>
+                        <div class="text-indigo-600 text-2xl mb-2">💡</div>
+                        <h4 class="font-bold mb-2">Monitoria: Inclusão Digital</h4>
+                        <p class="text-sm text-gray-600">Auxílio à comunidade em alfabetização digital e navegação segura.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200 text-xs font-semibold text-indigo-500">MAR 2023 - JUN 2023</div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-indigo-600 text-2xl mb-2">📜</div>
+                        <h4 class="font-bold mb-2">Certificações em Destaque</h4>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            <li>• Formação JS Back-End (74h)</li>
+                            <li>• Node.js API REST + MongoDB</li>
+                            <li>• PostgreSQL + Modelagem</li>
+                            <li>• Scrum Fundamentals Certified</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100 text-xs font-semibold text-gray-400 uppercase">Alura & Scrum Study</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white py-12 border-t border-gray-100 text-center">
+        <p class="text-gray-400 text-sm">© 2026 Suzana Souza Araújo. Desenvolvido com foco em resultados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.js Configuration
+            const ctxStack = document.getElementById('stackChart').getContext('2d');
+            const ctxLang = document.getElementById('langChart').getContext('2d');
+
+            // Set global font
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#64748B';
+
+            new Chart(ctxStack, {
+                type: 'radar',
+                data: {
+                    labels: ['Front-End', 'Back-End', 'Database', 'Scrum', 'DevOps', 'Arquitetura'],
+                    datasets: [{
+                        label: 'Nível de Domínio',
+                        data: [80, 85, 80, 85, 60, 70],
+                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(79, 70, 229, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            new Chart(ctxLang, {
+                type: 'bar',
+                data: {
+                    labels: ['JavaScript', 'TypeScript', 'Angular', 'Node.js', 'C#/.NET', 'SQL Server','Git/Github'],
+                    datasets: [{
+                        data: [80, 60, 80, 80, 75, 80, 80],
+                        backgroundColor: '#4F46E5',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { display: false, max: 100 },
+                        y: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => ` Proficiência: ${context.raw}%`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Smooth Scroll active link update
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
